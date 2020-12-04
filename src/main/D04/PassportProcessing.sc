@@ -17,6 +17,7 @@ val checklist =
     "pid"
   )
 
+
 case class Passport(desc: String) {
   // derive attribute Map.
   val aMap =
@@ -24,8 +25,10 @@ case class Passport(desc: String) {
       .map(str => str.split(":"))
       .map { case Array(k, v) => (k, v) }
       .toMap
+
   val looks_valid: Boolean = checklist.diff(aMap.keys.toSet).isEmpty
 }
+
 
 // prepare data
 @tailrec
