@@ -5,19 +5,29 @@ val fpath = "/home/jan/IdeaProjects/advent-of-code/src/main/D04/input.txt"
 val source = scala.io.Source.fromFile(fpath)
 val rawData = try source.getLines().toList finally source.close()
 
-// Given input of keys to check.
-val checkList =
-  List(
+// prepare a list of values to check in part 1
+val checklist =
+  Set(
     "byr",
     "iyr",
     "eyr",
     "hgt",
     "hcl",
     "ecl",
-    "pid",
-    //"cid",
+    "pid"
   )
 
+case class Passport(desc: String) {
+  // derive attribute Map.
+  val aMap =
+    desc.split(" ")
+      .map(str => str.split(":"))
+      .map { case Array(k, v) => (k, v) }
+      .toMap
+  val looks_valid: Boolean = checklist.diff(aMap.keys.toSet).isEmpty
+}
+
+// prepare data
 @tailrec
 def splitter(accu: List[String], inList: List[String], splitChar: String): List[String] = {
   if (inList.isEmpty) accu
@@ -26,21 +36,8 @@ def splitter(accu: List[String], inList: List[String], splitChar: String): List[
     splitter(accu ::: List(keep.mkString(" ")), rest.tail, splitChar)
   }
 }
-def mapper(inString: String): Map[String, String] = {
-  inString
-    .split(" ")
-    .map(str => str.split(":"))
-    .map { case Array(k, v) => (k, v) }
-    .toMap
-}
 
-def validate(inMap: Map[String, String], checklist: List[String]): Boolean = {
-  checkList.forall(x => inMap.contains(x))
-}
+val data = splitter(List.empty[String], rawData ::: List(""), "")
 
-val numberOfValidPassports =
-  splitter(List.empty[String], rawData ::: List(""), "")
-    .map(x => mapper(x))
-    .map(m => validate(m, checkList))
-    .map(t => if (t) 1 else 0)
-    .sum
+// Part 1
+data.count(x => Passport(x).looks_valid)
