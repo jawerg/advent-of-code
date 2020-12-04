@@ -9,13 +9,27 @@ case class Interval(description: String) {
   val ub: Int = splitter(1).toInt
 
   def contains(x: Int): Boolean = lb <= x && x <= ub
+
+  def is_valid(pw: String, key: Char): Boolean = {
+    val i = lb - 1
+    val j = ub - 1
+    pw(i) == key ^ pw(j) == key
+  }
 }
 
+// General
+val policies = lines.map(x => x.split(" "))
+
 // Part 1
-lines
-  .map(x => x.split(" "))
-  .map {
-    case Array(constraints, letter, pw) =>
+policies
+  .map {case Array(constraints, letter, pw) =>
       Interval(constraints).contains(pw.count(x => x == letter.head))
+  }
+  .count(x => x)
+
+// Part 2
+policies
+  .map {case Array(constraints, letter, pw) =>
+    Interval(constraints).is_valid(pw, letter.head)
   }
   .count(x => x)
