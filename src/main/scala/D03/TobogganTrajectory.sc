@@ -1,7 +1,4 @@
-// Load
-val fpath = "/home/jan/IdeaProjects/advent-of-code/src/main/D03/input.txt"
-val source = scala.io.Source.fromFile(fpath)
-val lines = try source.getLines().toList finally source.close()
+val lines = Importeuer(3, test = false).values
 val streams = lines.map(x => LazyList.continually(x).flatten)
 
 def tobo_trajector(right: Int, down: Int): BigInt = {

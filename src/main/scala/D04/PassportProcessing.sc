@@ -1,9 +1,6 @@
 import scala.annotation.tailrec
 
-// Load
-val fpath = "/home/jan/IdeaProjects/advent-of-code/src/main/D04/input.txt"
-val source = scala.io.Source.fromFile(fpath)
-val rawData = try source.getLines().toList finally source.close()
+val lines = Importeuer(4, test = false).values
 
 // prepare a list of values to check in part 1
 val checklist =

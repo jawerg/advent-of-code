@@ -1,7 +1,4 @@
-// Load
-val fpath = "/home/jan/IdeaProjects/advent-of-code/src/main/D02/input.txt"
-val source = scala.io.Source.fromFile(fpath)
-val lines = try source.getLines().toList finally source.close()
+val lines = Importeuer(2, test = false).values
 
 
 case class Interval(description: String) {

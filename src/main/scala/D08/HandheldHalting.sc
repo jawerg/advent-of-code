@@ -1,8 +1,3 @@
-// Load
-val fpath = "/home/jan/IdeaProjects/advent-of-code/src/main/D08/input.txt"
-val source = scala.io.Source.fromFile(fpath)
-val lines = try source.getLines().toArray finally source.close()
-
 // Define some helpers to match the defintion of the problem in the puzzle.
 type Operation = String
 type Argument = Int
@@ -27,6 +22,8 @@ def str2Instruction(instr: String): Instruction = {
   Instruction(instr.take(3), instr.drop(4).toInt)
 }
 
+// Setup
+val lines = Importeuer(8, test = false).values.toArray
 
 val instructions = lines.map(x => str2Instruction(x))
 
